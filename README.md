@@ -1,6 +1,20 @@
-# Angular Rails Templates [![Build Status](https://secure.travis-ci.org/pitr/angular-rails-templates.png?branch=master)](http://travis-ci.org/pitr/angular-rails-templates)
+# Angular Rails Templates
+
+[![Gem Version](https://badge.fury.io/rb/angular-rails-templates.png)](http://badge.fury.io/rb/angular-rails-templates)
+[![Coverage Status](https://coveralls.io/repos/github/pitr/angular-rails-templates/badge.svg?branch=master)](https://coveralls.io/github/pitr/angular-rails-templates?branch=master)
+[![Code Climate](https://codeclimate.com/github/pitr/angular-rails-templates/badges/gpa.svg)](https://codeclimate.com/github/pitr/angular-rails-templates)
+[![Issue Stats](http://issuestats.com/github/pitr/angular-rails-templates/badge/pr)](http://issuestats.com/github/pitr/angular-rails-templates)
+[![Issue Stats](http://issuestats.com/github/pitr/angular-rails-templates/badge/issue)](http://issuestats.com/github/pitr/angular-rails-templates)
+[![Stories in Ready](https://badge.waffle.io/pitr/angular-rails-templates.png?label=ready&title=Ready)](https://waffle.io/pitr/angular-rails-templates)
 
 Adds your HTML templates into Angular's `$templateCache` using Rails asset pipeline.
+
+**IMPORTANT**: for Rails 4.2+ use version 1.0+ of this gem. For Rails 3 - 4.1 use version 0.x
+
+Branch      | Build Status
+------------|---------
+master      | [![Build Status](https://travis-ci.org/pitr/angular-rails-templates.png?branch=master)](https://travis-ci.org/pitr/angular-rails-templates)
+0-x-stable  | [![Build Status](https://travis-ci.org/pitr/angular-rails-templates.png?branch=0-x-stable)](https://travis-ci.org/pitr/angular-rails-templates)
 
 It removes the need for AJAX calls to retrieve the templates (or for you to manually set them into the DOM).
 
@@ -40,8 +54,6 @@ foo.html.erb
 foo.html.haml
 foo.html.slim
 ```
-
-Caution: *`.ngslim` and `.nghaml` are no longer supported!*
 
 Angular Rails Templates will try to load support for the following markups if their gems are present:
 
@@ -103,9 +115,9 @@ Here are their default values:
 # config/application.rb
 config.angular_templates.module_name    = 'templates'
 config.angular_templates.ignore_prefix  = %w(templates/)
-config.angular_templates.inside_paths   = [Rails.root.join('app', 'assets')]
+config.angular_templates.inside_paths   = ['app/assets']
 config.angular_templates.markups        = %w(erb str haml slim md)
-config.angular_templates.htmlcompressor = false
+config.angular_templates.extension      = 'html'
 ```
 
 ### Configuration Option: `module_name`
@@ -186,39 +198,17 @@ config.angular_templates.markups.push 'nghaml'
 ```
 Note: You would still need to use `foo`**`.html`**`.nghaml`
 
+### Configuration Option: `extension`
 
-### Configuration Option: `htmlcompressor`
-
-The [htmlcompressor gem](https://github.com/paolochiodi/htmlcompressor) is in alpha, not activly maintained, and has several known bugs. Beware if you are using windows. The `simple_boolean_attributes` option is known to mangle angular templates. It depends on a three-year-old version of yui-compressor. However, it does a good job of compressing html!
-
-If you would like to use htmlcompressor add it to your Gemfile and Enable the configuration option.
-
-```ruby
-# Gemfile
-gem 'htmlcompressor'
-```
-
-```ruby
-# config/application.rb
-config.angular_templates.htmlcompressor = true
-```
-
-You can also pass an options hash to `htmlcompressor` that will be directly passed to ```HtmlCompressor::Compressor.new```. See the [ruby project](https://github.com/paolochiodi/htmlcompressor#usage) or the [java project](https://code.google.com/p/htmlcompressor/#Compressing_HTML_and_XML_files_from_a_command_line) for descriptions of the options.
-
-```ruby
-# config/application.rb
-config.angular_templates.htmlcompressor = {
-  :remove_quotes => true
-}
-```
-
+By default this gem looks only at templates with `.html` suffix, eg. `foo.html` or `foo.html.haml`. This extension allows you to change that to another extension
 
 ## License
 
-MIT License. Copyright 2014 Pitr
+MIT License. Copyright 2016 pitr
 
 ## Authors & contributors
 
 * Damien Mathieu <42@dmathieu.com>
 * pitr <pitr.vern@gmail.com>
 * Jeremy Ebler <jebler@gmail.com>
+* Chris Nelson <chris@teamgaslight.com>
